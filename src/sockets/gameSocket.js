@@ -23,8 +23,15 @@ export default (io,socket)=>{
 
             const gameId = generatId();
 
-            socket.to(socket1).socketsJoin(gameId);
-            socket.to(socket2).socketsJoin(gameId);
+            const player1Socket = io.sockets.sockets.get(socket1);
+            const player2Socket = io.sockets.sockets.get(socket2);
+
+            if (player1Socket && player2Socket) {
+                player1Socket.join(gameId);
+                player2Socket.join(gameId);
+            } else {
+                console.error("One or both player sockets could not be found");
+            }
             
             const game =createGame(player1,player2,gameId);
 
