@@ -1,0 +1,17 @@
+*emitted events
+    -"game_found" user jonined game
+        -return none
+    -"update_game" update the game
+        -return "error" , "game"
+    -"waiting_for_opponent" no game found
+        -return none
+    
+*on events
+    -"connection" user connects to the Server
+        -args none
+    -"join" user try to join a game 
+        -args "playerId"
+    -"make_move" user made move
+        -args "pos" , "gameId"
+    
+    

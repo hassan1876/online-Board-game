@@ -35,21 +35,20 @@ export default (io,socket)=>{
             
             const game =createGame(player1,player2,gameId);
 
-            io.to(gameId).emit('game_found',{game});
+            io.to(gameId).emit('game_found');
+            io.to(gameId).emit('update_game',{error:"",game:game});
             
         }else{
             socket.emit('waiting_for_opponent');
         }
     },
     socket.on('make_move',({pos,gameId})=>{
-        const result = makeMove(gameId, pos);
-        
-        if (result.error) {
-            socket.emit("error", { error: result.error });
-        } else {
-            socket.emit("move_made", result);
-        }
-    })
+        const updatedGame = makeMove(gameId, pos);
+        io.to(gameId).emit('update_game',updatedGame);
+    }),
+    socket.on('disconnect', () => {
+        console.log('A user disconnected:', socket.id);
+      })
 )
 
 

@@ -15,9 +15,9 @@ export function makeMove(gameId,position){
 
     const result = game.makeMove(position);
     if(result){
-        return game;
+        return {error:"",game: game};
     }else{
-        return { error: "Wrong move" };
+        return { error: "Wrong move",game: game };
     }
 
 
