@@ -1,10 +1,19 @@
 *emitted events
-    -"game_found" user jonined game
+    -"player_matched" user jonined game
         -return none
     -"update_game" update the game
         -return "error" , "game"
-    -"waiting_for_opponent" no game found
+    -"waiting_for_opponent" not enough players to start the game
         -return none
+    -"game_not_found" invalid game gameId
+        -return "error" , "game"
+//todo
+    -"timer_update" update player turn countdown
+        -return "time"
+    -"turn_time_out" player turn ended
+        -return none
+    
+
     
 *on events
     -"connection" user connects to the Server

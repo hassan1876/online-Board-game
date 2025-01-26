@@ -1,50 +1,12 @@
-import generatId from '../utils/generateRoomId.js';
-import Player from '../models/Player.js';
-import { createGame,makeMove } from '../services/xoGameService.js';
-const waitingPlayers = [];
-const games = {};
+import { makeMove,matchPlayer } from '../services/xoGameService.js';
 
 export default (io,socket)=>{
     socket.on('join',({playerId})=>{
-
-        waitingPlayers.push({socketId:socket.id,player:new Player(playerId)});
-
-        if(waitingPlayers.length>=2){
-
-            const player1 = waitingPlayers[0].player;
-            player1.piece  ="X";
-            const socket1 = waitingPlayers[0].socketId;
-
-            waitingPlayers.shift();
-            const player2 = waitingPlayers[0].player;
-            player2.piece = "O";
-            const socket2 = waitingPlayers[0].socketId;
-            waitingPlayers.shift();
-
-            const gameId = generatId();
-
-            const player1Socket = io.sockets.sockets.get(socket1);
-            const player2Socket = io.sockets.sockets.get(socket2);
-
-            if (player1Socket && player2Socket) {
-                player1Socket.join(gameId);
-                player2Socket.join(gameId);
-            } else {
-                console.error("One or both player sockets could not be found");
-            }
-            
-            const game =createGame(player1,player2,gameId);
-
-            io.to(gameId).emit('game_found');
-            io.to(gameId).emit('update_game',{error:"",game:game});
-            
-        }else{
-            socket.emit('waiting_for_opponent');
-        }
+        matchPlayer(io,socket,socket.id,playerId);
     },
     socket.on('make_move',({pos,gameId})=>{
-        const updatedGame = makeMove(gameId, pos);
-        io.to(gameId).emit('update_game',updatedGame);
+        console.log("pos",pos);
+        makeMove(io,gameId, pos);
     }),
     socket.on('disconnect', () => {
         console.log('A user disconnected:', socket.id);
