@@ -5,6 +5,7 @@ export default class GameXo {
       this.p2 = player2;
       this.currentTurn = player1.piece;
       this.status = "game started";
+      this.winningLine ;
       this.moves = 0;
       this.winner  = "";
       this.timer =30;
@@ -63,9 +64,7 @@ export default class GameXo {
         if (this.board[a] === this.currentTurn && 
             this.board[a] === this.board[b] && 
             this.board[a] === this.board[c]) {
-          this.board[a] = 'W';
-          this.board[b] = 'W';
-          this.board[c] = 'W';
+              this.winningLine = {a,b,c};
           
           return true;
         }
