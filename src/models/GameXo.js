@@ -64,7 +64,7 @@ export default class GameXo {
         if (this.board[a] === this.currentTurn && 
             this.board[a] === this.board[b] && 
             this.board[a] === this.board[c]) {
-              this.winningLine = {a,b,c};
+              this.winningLine = [a,b,c];
           
           return true;
         }
