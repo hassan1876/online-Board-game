@@ -52,14 +52,20 @@ export default class GameXo {
         [2, 4, 6], // Diagonal from top-right to bottom-left
       ];
   
-      return winningCombos.some(combo => {
+      for (let combo of winningCombos) {
         const [a, b, c] = combo;
-        return (
-          this.board[a] === this.currentTurn &&
-          this.board[a] === this.board[b] &&
-          this.board[a] === this.board[c]
-        );
-      });
+        if (this.board[a] === this.currentTurn && 
+            this.board[a] === this.board[b] && 
+            this.board[a] === this.board[c]) {
+          this.board[a] = 'W';
+          this.board[b] = 'W';
+          this.board[c] = 'W';
+          
+          return true;
+        }
+      }
+      return false;
+    
     }
   
     
