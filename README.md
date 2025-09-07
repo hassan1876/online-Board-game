@@ -18,7 +18,7 @@ A real-time multiplayer board game built with a **Node.js backend** and a **Flut
 - **Communication**: WebSockets  
 
 ## 👥 Team Members  
-- [Hassan Magdi](https://github.com/yourusername)  
+- [Hassan Magdi](https://github.com/hassan1876)  
 - [Youssef Moataz](https://github.com/YoussefMoataz)  
 ---
 ## 🤝 Contributing  
